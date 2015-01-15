@@ -15,7 +15,7 @@
 
 {% macro method_link(method, absolute, classonly) -%}
 {% spaceless -%}
-[{{- _self.abbr_class(method.class) }}{% if not classonly|default(false) %}::{{ method.name }}{% endif -%}]({{ _self.markdown_path(method_path(method)) }})
+[{{- _self.abbr_class(method.class) }}{% if not classonly|default(false) %}::{{ method.name }}{% endif -%}]({{ _self.markdown_path(class_path(method.class)) }}#{{ method.name }})
 {%- endspaceless %}
 {%- endmacro %}
 
