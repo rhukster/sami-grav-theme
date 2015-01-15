@@ -1,0 +1,9 @@
+name: grav
+
+global:
+    "pages/index.twig": "01.home/default.md"
+    "pages/classes.twig": "02.classes/default.md"
+    "pages/interfaces.twig": "03.interfaces/default.md"
+
+class:
+    "pages/class.twig": "%s/default.md"
