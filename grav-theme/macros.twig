@@ -1,31 +1,34 @@
-{% macro namespace_link(namespace) -%}
-    <a href="{{ namespace_path(namespace) }}">{{ namespace }}</a>
-{%- endmacro %}
+{% macro namespace_link(namespace) %}
+**{{ namespace }}**
+{% endmacro %}
 
 {% macro class_link(class, absolute) -%}
-    {%- if class.projectclass -%}
-        <a href="{{ class_path(class) }}">
-    {%- elseif class.phpclass -%}
-        <a href="http://php.net/{{ class }}">
-    {%- endif %}
-    {{- _self.abbr_class(class, absolute|default(false)) }}
-    {%- if class.projectclass or class.phpclass %}</a>{% endif %}
+{% spaceless -%}
+[{{- class.shortname }}]
+{%- if class.projectclass -%}
+({{ _self.markdown_path(class_path(class)) }})
+{%- elseif class.phpclass -%}
+(http://php.net/{{ class }})
+{%- endif %}
+{%- endspaceless %}
 {%- endmacro %}
 
 {% macro method_link(method, absolute, classonly) -%}
-    <a href="{{ method_path(method) }}">
-        {{- _self.abbr_class(method.class) }}{% if not classonly|default(false) %}::{{ method.name }}{% endif -%}
-    </a>
+{% spaceless -%}
+[{{- _self.abbr_class(method.class) }}{% if not classonly|default(false) %}::{{ method.name }}{% endif -%}]({{ _self.markdown_path(method_path(method)) }})
+{%- endspaceless %}
 {%- endmacro %}
 
 {% macro property_link(property, absolute, classonly) -%}
-    <a href="{{ property_path(property) }}">
-        {{- _self.abbr_class(property.class) }}{% if not classonly|default(true) %}#{{ property.name }}{% endif -%}
-    </a>
+{% spaceless -%}
+[{{- _self.abbr_class(property.class) }}{% if not classonly|default(true) %}#{{ property.name }}{% endif -%}]({{ _self.markdown_path(property_path(property)) }})
+{%- endspaceless %}
 {%- endmacro %}
 
 {% macro abbr_class(class, absolute) -%}
-    <abbr title="{{ class }}">{{ absolute|default(false) ? class : class.shortname }}</abbr>
+{% spaceless %}
+{{ absolute|default(false) ? class : class.shortname }}
+{% endspaceless %}
 {%- endmacro %}
 
 {% macro class_item(class, short = false, indent = "") -%}
@@ -67,7 +70,7 @@ class
 
 {% macro markdown_path(path) -%}
 {% spaceless %}
-{{- path|replace({".html": ""}) -}}
+{{- path|replace({".html": "/"}) -}}
 {% endspaceless %}
 {%- endmacro -%}
 

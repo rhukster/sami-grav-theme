@@ -20,15 +20,15 @@
 {% set type = element[0] %}
 {% set value = element[1] %}
 {% if 'class' == type %}
-{{ class_link(value) }}{% if has_namespaces %} &mdash; _Class in namespace {{ namespace_link(value.namespace) }}{% endif %}_
+{{ class_link(value) }}{% if has_namespaces %} &mdash; Class in namespace {{ namespace_link(value.namespace) }}{% endif %}
 :   {{ value.shortdesc|desc(value) }}
 
 {% elseif 'method' == type %}
-{{ method_link(value) }}() &mdash; _Method in class {{ class_link(value.class) }}_
+{{ method_link(value) }}() &mdash; Method in class {{ class_link(value.class) }}
 :   {{ value.shortdesc|desc(value.class) }}
 
 {% elseif 'property' == type %}
-${{ property_link(value) }} &mdash; _Property in class {{ class_link(value.class) }}_
+${{ property_link(value) }} &mdash; Property in class {{ class_link(value.class) }}
 :   {{ value.shortdesc|desc(value.class) }}
 
 {% endif %}
